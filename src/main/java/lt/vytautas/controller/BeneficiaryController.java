@@ -19,15 +19,15 @@ public class BeneficiaryController {
     }
 
     @GetMapping
-    public List<Beneficiary> list() {
+    public List<Beneficiary> readAll() {
         return beneficiaryRepo.findAll();
     }
 
     @GetMapping("{id}")
-
-    public Beneficiary getOne(@PathVariable("id") Beneficiary beneficiary) {
+    public Beneficiary getOneById(@PathVariable("id") Beneficiary beneficiary) {
         return beneficiary;
     }
+
 
     @PostMapping
     public Beneficiary create(@RequestBody Beneficiary beneficiary) {
@@ -46,5 +46,11 @@ public class BeneficiaryController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Beneficiary beneficiary) {
         beneficiaryRepo.delete(beneficiary);
+
+    }
+
+    @GetMapping("/q/{id}")
+    public String getQrCodeById(@PathVariable("id") Beneficiary beneficiary) {
+        return ("<img src=\"https://qrcode.tec-it.com/API/QRCode?data=" + "Uniq code:" + beneficiary.getUniqCode()) + "    name:"+beneficiary.getName() +"&backcolor=%23ffffff\" />";
     }
 }

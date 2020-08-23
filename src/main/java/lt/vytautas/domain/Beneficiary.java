@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -14,11 +15,11 @@ public class Beneficiary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(unique=true)
     private String uniqCode;
     private String name;
 
-    public Beneficiary() {
-    }
+    public Beneficiary() {}
 
     public long getId() {
         return id;
@@ -33,7 +34,8 @@ public class Beneficiary {
     }
 
     public void setUniqCode(String uniqCode) {
-        this.uniqCode = uniqCode;
+        String uuidPart = UUID.randomUUID().toString();
+        this.uniqCode = uniqCode + uuidPart;
     }
 
     public String getName() {
@@ -41,6 +43,8 @@ public class Beneficiary {
     }
 
     public void setName(String name) {
+
         this.name = name;
+
     }
 }
